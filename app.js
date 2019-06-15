@@ -3,7 +3,17 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var mongoose = require('mongoose');//connection to mongo db
+mongoose.connect(
+  `mongodb+srv://Assignment1:assignment123@cluster0-kz1st.mongodb.net/test?retryWrites=true&w=majority`,
+  {
+    useNewUrlParser: true
+  }
+); // Connect to mongo
 
+var db = mongoose.connection;
+db.on('error', err => console.log(err));
+db.once('open', () => console.log('Connection to mongoose successful'));
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
